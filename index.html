@@ -1,36 +1,48 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Architectural Prompt Generator</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            margin-top: 50px;
-        }
-        .prompt-container, .generated-prompt {
-            margin-top: 30px;
-            background: #f8f9fa;
-            padding: 10px;
-            border: 1px solid #e9ecef;
-            border-radius: 5px;
-        }
-        .prompt-row {
-            margin-bottom: 10px;
-        }
-        .btn-custom {
-            background-color: #333;
-            color: white;
-        }
-    </style>
-</head>
-<body class="text-center">
-    <div class="container">
-        <h1 class="display-4">Architectural Prompt Generator</h1>
-        <button class="btn btn-custom mt-4" onclick="generatePrompt()">Generate New Prompt</button>
-        
-        <div id="prompt" class="prompt-container"></div>
-        <div id="generated-prompt" class="generated-prompt"></div>
-    </div>
+    <head>
+        <title>Architectural Prompt Generator</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                margin-top: 50px;
+            }
+            .container {
+                max-width: 800px;
+            }
+            .section {
+                background: #f8f9fa;
+                padding: 15px;
+                border: 1px solid #e9ecef;
+                border-radius: 5px;
+                margin-bottom: 20px;
+            }
+            .prompt-row {
+                margin-bottom: 10px;
+            }
+            .btn-custom {
+                background-color: #333;
+                color: white;
+            }
+            .generated-prompt {
+                background: #dff0d8; /* Light green background for emphasis */
+                padding: 10px;
+                border: 1px solid #d6e9c6;
+                border-radius: 5px;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body class="text-center">
+        <div class="container">
+            <h1 class="display-4">Architectural Prompt Generator</h1>
+            <button class="btn btn-custom mt-4" onclick="generatePrompt()">Generate New Prompt</button>
+            
+            <div id="morphogenesis" class="section"></div>
+            <div id="inspiration" class="section"></div>
+            <div id="visualization" class="section"></div>
+            <div id="generated-prompt" class="generated-prompt"></div>
+        </div>
 
     <script>
         const categories = {
@@ -38,7 +50,11 @@
             operations: ['Twist', 'Expand', 'Merge', 'Light-Adaptive', 'Fold', 'Subtract', 'Reflect', 'Extrude', 'Compress', 'Fracture', 'Bend', 'Stretch', 'Carve', 'Inflate', 'Deflate', 'Pierce', 'Intersect', 'Distort', 'Segment', 'Layer', 'Rotate', 'Translate', 'Scale', 'Tessellate', 'Perforate', 'Embed', 'Weave', 'Wrap', 'Overlay', 'Splice', 'Dilate', 'Erode', 'Blur', 'Sharpen', 'Invert', 'Simplify', 'Complicate', 'Modulate', 'Distend', 'Contract', 'Pattern', 'Texture', 'Colorize', 'Decolorize', 'Polish', 'Roughen', 'Align', 'Disperse', 'Aggregate', 'Isolate', 'Truncate'],
             programs: ['Single-family Home', 'Retail Store', 'Museum', 'Sports Facility', 'Library', 'Park', 'Office Building', 'Restaurant', 'Hotel', 'University', 'School', 'Hospital', 'Clinic', 'Theater', 'Concert Hall', 'Warehouse', 'Factory', 'Farmhouse', 'Villa', 'Apartment Complex', 'Shopping Mall', 'Gymnasium', 'Aquarium', 'Zoo', 'Art Gallery', 'Train Station', 'Airport', 'Bus Terminal', 'Subway Station', 'Fire Station', 'Police Station', 'Town Hall', 'Courthouse', 'Embassy', 'Monastery', 'Mosque', 'Temple', 'Church', 'Synagogue', 'Palace', 'Castle', 'Fortress', 'Barracks', 'Observatory', 'Lighthouse', 'Windmill', 'Greenhouse', 'Pavilion', 'Stadium', 'Arena'],
             scales: ['Tiny', 'Extra Small', 'Small', 'Medium', 'Large', 'Extralarge', 'Megastructural'],
-            materials: ['Wood Grain', 'Metal Finish', 'Rough Stone Texture', 'Glossy Surface', 'Brick Pattern', 'Concrete', 'Glass', 'Steel', 'Copper', 'Marble', 'Granite', 'Limestone', 'Sandstone', 'Bamboo', 'Plaster', 'Stucco', 'Ceramic Tiles', 'Porcelain', 'Terrazzo', 'Mosaic Tiles', 'Leather', 'Fabric', 'Canvas', 'Rubber', 'Plastic', 'Vinyl', 'Fiberglass', 'Carbon Fiber', 'Acrylic', 'Polycarbonate', 'Asphalt', 'Terra Cotta', 'Corten Steel', 'Aluminum', 'Zinc', 'Titanium', 'Bronze', 'Gold Leaf', 'Silver Leaf', 'Velvet', 'Silk', 'Wool', 'Denim', 'Satin', 'Lace', 'Hemp', 'Suede', 'Felt', 'Linen', 'Velour']
+            architecturalStyles: ['Modernist', 'Brutalist', 'Classical', 'Neoclassical', 'Baroque', 'Gothic', 'Renaissance', 'Art Deco', 'Victorian', 'Futurist'],
+            architects: ['Luis Barragan', 'Mies van der Rohe', 'Tadao Ando', 'Zaha Hadid', 'Frank Lloyd Wright', 'Le Corbusier', 'Norman Foster', 'Rem Koolhaas', 'Frank Gehry', 'Jean Nouvel'],
+            materials: ['Wood Grain', 'Metal Finish', 'Rough Stone Texture', 'Glossy Surface', 'Brick Pattern', 'Concrete', 'Glass', 'Steel', 'Copper', 'Marble', 'Granite', 'Limestone', 'Sandstone', 'Bamboo', 'Plaster', 'Stucco', 'Ceramic Tiles', 'Porcelain', 'Terrazzo', 'Mosaic Tiles', 'Leather', 'Fabric', 'Canvas', 'Rubber', 'Plastic', 'Vinyl', 'Fiberglass', 'Carbon Fiber', 'Acrylic', 'Polycarbonate', 'Asphalt', 'Terra Cotta', 'Corten Steel', 'Aluminum', 'Zinc', 'Titanium', 'Bronze', 'Gold Leaf', 'Silver Leaf', 'Velvet', 'Silk', 'Wool', 'Denim', 'Satin', 'Lace', 'Hemp', 'Suede', 'Felt', 'Linen', 'Velour'],
+            visualizationStyles: ['Pixel Art', 'Realistic', 'Collage', 'Sketch', 'Watercolor', '3D Render','Comic'],
+            representations: ['Section', 'Floor Plan', 'Isometric', 'Interior Perspective', 'Exterior Perspective', 'Birds Eye View']
         };
 
         function getRandomElement(arr) {
@@ -62,14 +78,33 @@
             const program = getRandomElement(categories.programs);
             const scale = getRandomElement(categories.scales);
             const material = getRandomElement(categories.materials);
+            const visualizationStyle = getRandomElement(categories.visualizationStyles);
+            const representation = getRandomElement(categories.representations);
+            const architecturalStyle = getRandomElement(categories.architecturalStyles);
+            const architect = getRandomElement(categories.architects);
 
-            const promptContainer = document.getElementById('prompt');
-            promptContainer.innerHTML = `
+            const morphogenesisContainer = document.getElementById('morphogenesis');
+            morphogenesisContainer.innerHTML = `
+                <h4>Morphogenesis</h4>
                 <div class="prompt-row">Form: ${form}</div>
                 <div class="prompt-row">Operation: ${operation}</div>
                 <div class="prompt-row">Program: ${program}</div>
-                <div class="prompt-row">Scale: ${scale}</div>
                 <div class="prompt-row">Material/Texture: ${material}</div>
+                <div class="prompt-row">Scale: ${scale}</div>
+            `;
+
+            const inspirationContainer = document.getElementById('inspiration');
+            inspirationContainer.innerHTML = `
+                <h4>Inspiration</h4>
+                <div class="prompt-row">Architect: ${architect}</div>
+                <div class="prompt-row">Architectural Style: ${architecturalStyle}</div>
+            `;
+
+            const visualizationContainer = document.getElementById('visualization');
+            visualizationContainer.innerHTML = `
+                <h4>Visualization</h4>
+                <div class="prompt-row">Visualization Style: ${visualizationStyle}</div>
+                <div class="prompt-row">Representation: ${representation}</div>
             `;
 
             // Generating a random descriptive prompt
