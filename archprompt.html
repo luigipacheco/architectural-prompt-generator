@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Architectural Prompt Generator</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin-top: 50px;
+        }
+        .prompt-container, .generated-prompt {
+            margin-top: 30px;
+            background: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+        }
+        .prompt-row {
+            margin-bottom: 10px;
+        }
+        .btn-custom {
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body class="text-center">
+    <div class="container">
+        <h1 class="display-4">Architectural Prompt Generator</h1>
+        <button class="btn btn-custom mt-4" onclick="generatePrompt()">Generate New Prompt</button>
+        
+        <div id="prompt" class="prompt-container"></div>
+        <div id="generated-prompt" class="generated-prompt"></div>
+    </div>
+
+    <script>
+        const categories = {
+            forms: ['Cube', 'Sphere', 'Wave-like', 'Octahedron', 'Pyramid', 'Cylinder', 'Prism', 'Torus', 'Helix', 'Dome', 'Ellipsoid', 'Hexagon', 'Octagon', 'Decagon', 'Trapezoid', 'Cone', 'Icosahedron', 'Dodecahedron', 'Tetrahedron', 'Octahedron', 'Mobius Strip', 'Klein Bottle', 'Star', 'Cross', 'Heart', 'Diamond', 'Pentagon', 'Triangle', 'Arch', 'Circle', 'Square', 'Oval', 'Rectangle', 'Rhombus', 'Parallelogram', 'Annulus', 'Sector', 'Segment', 'Frustum', 'Spiral', 'Superellipse', 'Astroid', 'Epicycloid', 'Hypocycloid', 'Lemniscate', 'Oloid', 'Sphericon', 'Gyroid', 'Helicoid', 'Toroid', 'Minimal Surface'],
+            operations: ['Twist', 'Expand', 'Merge', 'Light-Adaptive', 'Fold', 'Subtract', 'Reflect', 'Extrude', 'Compress', 'Fracture', 'Bend', 'Stretch', 'Carve', 'Inflate', 'Deflate', 'Pierce', 'Intersect', 'Distort', 'Segment', 'Layer', 'Rotate', 'Translate', 'Scale', 'Tessellate', 'Perforate', 'Embed', 'Weave', 'Wrap', 'Overlay', 'Splice', 'Dilate', 'Erode', 'Blur', 'Sharpen', 'Invert', 'Simplify', 'Complicate', 'Modulate', 'Distend', 'Contract', 'Pattern', 'Texture', 'Colorize', 'Decolorize', 'Polish', 'Roughen', 'Align', 'Disperse', 'Aggregate', 'Isolate', 'Truncate'],
+            programs: ['Single-family Home', 'Retail Store', 'Museum', 'Sports Facility', 'Library', 'Park', 'Office Building', 'Restaurant', 'Hotel', 'University', 'School', 'Hospital', 'Clinic', 'Theater', 'Concert Hall', 'Warehouse', 'Factory', 'Farmhouse', 'Villa', 'Apartment Complex', 'Shopping Mall', 'Gymnasium', 'Aquarium', 'Zoo', 'Art Gallery', 'Train Station', 'Airport', 'Bus Terminal', 'Subway Station', 'Fire Station', 'Police Station', 'Town Hall', 'Courthouse', 'Embassy', 'Monastery', 'Mosque', 'Temple', 'Church', 'Synagogue', 'Palace', 'Castle', 'Fortress', 'Barracks', 'Observatory', 'Lighthouse', 'Windmill', 'Greenhouse', 'Pavilion', 'Stadium', 'Arena'],
+            scales: ['Tiny', 'Extra Small', 'Small', 'Medium', 'Large', 'Extralarge', 'Megastructural'],
+            materials: ['Wood Grain', 'Metal Finish', 'Rough Stone Texture', 'Glossy Surface', 'Brick Pattern', 'Concrete', 'Glass', 'Steel', 'Copper', 'Marble', 'Granite', 'Limestone', 'Sandstone', 'Bamboo', 'Plaster', 'Stucco', 'Ceramic Tiles', 'Porcelain', 'Terrazzo', 'Mosaic Tiles', 'Leather', 'Fabric', 'Canvas', 'Rubber', 'Plastic', 'Vinyl', 'Fiberglass', 'Carbon Fiber', 'Acrylic', 'Polycarbonate', 'Asphalt', 'Terra Cotta', 'Corten Steel', 'Aluminum', 'Zinc', 'Titanium', 'Bronze', 'Gold Leaf', 'Silver Leaf', 'Velvet', 'Silk', 'Wool', 'Denim', 'Satin', 'Lace', 'Hemp', 'Suede', 'Felt', 'Linen', 'Velour']
+        };
+
+        function getRandomElement(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function getRandomSentence(form, operation, program, scale, material) {
+            const templates = [
+                `Imagine a ${scale} ${program} that ${operation} into a ${form}, highlighted by its ${material} exterior.`,
+                `Envision a ${form}-shaped ${program}, ${operation} in style, standing out with its ${material} finish on a ${scale} scale.`,
+                `Picture a ${scale} ${program}, where a ${form} form ${operation}, all encased in ${material}.`,
+                `Design a ${program} on a ${scale} scale, where the ${form} structure ${operation} with a distinct ${material} texture.`,
+                `Create a ${scale} ${program} that transforms ${operation} into a ${form}, wrapped in ${material} materials.`
+            ];
+            return templates[Math.floor(Math.random() * templates.length)];
+        }
+
+        function generatePrompt() {
+            const form = getRandomElement(categories.forms);
+            const operation = getRandomElement(categories.operations);
+            const program = getRandomElement(categories.programs);
+            const scale = getRandomElement(categories.scales);
+            const material = getRandomElement(categories.materials);
+
+            const promptContainer = document.getElementById('prompt');
+            promptContainer.innerHTML = `
+                <div class="prompt-row">Form: ${form}</div>
+                <div class="prompt-row">Operation: ${operation}</div>
+                <div class="prompt-row">Program: ${program}</div>
+                <div class="prompt-row">Scale: ${scale}</div>
+                <div class="prompt-row">Material/Texture: ${material}</div>
+            `;
+
+            // Generating a random descriptive prompt
+            const generatedPrompt = document.getElementById('generated-prompt');
+            generatedPrompt.innerHTML = `<strong>Design Concept:</strong> ${getRandomSentence(form, operation, program, scale, material)}`;
+        }
+    </script>
+</body>
+</html>
