@@ -41,6 +41,7 @@
             <div id="morphogenesis" class="section"></div>
             <div id="inspiration" class="section"></div>
             <div id="visualization" class="section"></div>
+            <div id="modifier" class="section"></div>
             <div id="generated-prompt" class="generated-prompt"></div>
         </div>
 
@@ -54,23 +55,26 @@
             architects: ['Luis Barragan', 'Mies van der Rohe', 'Tadao Ando', 'Zaha Hadid', 'Frank Lloyd Wright', 'Le Corbusier', 'Norman Foster', 'Rem Koolhaas', 'Frank Gehry', 'Jean Nouvel'],
             materials: ['Wood Grain', 'Metal Finish', 'Rough Stone Texture', 'Glossy Surface', 'Brick Pattern', 'Concrete', 'Glass', 'Steel', 'Copper', 'Marble', 'Granite', 'Limestone', 'Sandstone', 'Bamboo', 'Plaster', 'Stucco', 'Ceramic Tiles', 'Porcelain', 'Terrazzo', 'Mosaic Tiles', 'Leather', 'Fabric', 'Canvas', 'Rubber', 'Plastic', 'Vinyl', 'Fiberglass', 'Carbon Fiber', 'Acrylic', 'Polycarbonate', 'Asphalt', 'Terra Cotta', 'Corten Steel', 'Aluminum', 'Zinc', 'Titanium', 'Bronze', 'Gold Leaf', 'Silver Leaf', 'Velvet', 'Silk', 'Wool', 'Denim', 'Satin', 'Lace', 'Hemp', 'Suede', 'Felt', 'Linen', 'Velour'],
             visualizationStyles: ['Pixel Art', 'Realistic', 'Collage', 'Sketch', 'Watercolor', '3D Render','Comic'],
-            representations: ['Section', 'Floor Plan', 'Isometric', 'Interior Perspective', 'Exterior Perspective', 'Birds Eye View']
+            representations: ['Section', 'Floor Plan', 'Isometric', 'Interior Perspective', 'Exterior Perspective', 'Birds Eye View'],
+            randomModifiers: ['Psychodelic', 'Decayed', 'Confusing', 'Ethereal', 'Solid'],
+            contextModifiers: ['Ruins', 'Forest', 'Maze', 'Megacity','Garden']
         };
 
         function getRandomElement(arr) {
             return arr[Math.floor(Math.random() * arr.length)];
         }
 
-        function getRandomSentence(form, operation, program, scale, material) {
+        function getRandomSentence(form, operation, program, scale, material, architect, style, vizStyle, representation) {
             const templates = [
-                `Imagine a ${scale} ${program} that ${operation} into a ${form}, highlighted by its ${material} exterior.`,
-                `Envision a ${form}-shaped ${program}, ${operation} in style, standing out with its ${material} finish on a ${scale} scale.`,
-                `Picture a ${scale} ${program}, where a ${form} form ${operation}, all encased in ${material}.`,
-                `Design a ${program} on a ${scale} scale, where the ${form} structure ${operation} with a distinct ${material} texture.`,
-                `Create a ${scale} ${program} that transforms ${operation} into a ${form}, wrapped in ${material} materials.`
+                `Envision a ${scale} ${style} ${program} designed by ${architect}, with a ${form} form featuring ${operation} and made of ${material}. It's presented as a ${vizStyle} showing a ${representation}.`,
+                `Picture a ${program} on a ${scale} scale, exhibiting a ${style} ${form} form. Created by ${architect}, it uses ${material} and demonstrates ${operation}. The ${representation} is shown in ${vizStyle}.`,
+                `Imagine a ${style} ${program} by ${architect}, scaling ${scale} and shaped as a ${form}. It ${operation} and uses ${material}, depicted in a ${vizStyle} ${representation}.`,
+                `Design a ${scale} ${program} inspired by ${style}, conceived by ${architect}. It takes a ${form} shape with ${operation} elements, using ${material}. Visualized through a ${vizStyle} ${representation}.`,
+                `Create a ${architect}'s ${style} vision of a ${scale} ${program}, using a ${form} form that ${operation}. The material of choice is ${material}, shown in a ${vizStyle} ${representation}.`
             ];
             return templates[Math.floor(Math.random() * templates.length)];
-        }
+}
+        
 
         function generatePrompt() {
             const form = getRandomElement(categories.forms);
@@ -82,6 +86,9 @@
             const representation = getRandomElement(categories.representations);
             const architecturalStyle = getRandomElement(categories.architecturalStyles);
             const architect = getRandomElement(categories.architects);
+            const randomModifier = getRandomElement(categories.randomModifiers);
+            const contextModifier = getRandomElement(categories.contextModifiers);
+
 
             const morphogenesisContainer = document.getElementById('morphogenesis');
             morphogenesisContainer.innerHTML = `
@@ -89,7 +96,6 @@
                 <div class="prompt-row">Form: ${form}</div>
                 <div class="prompt-row">Operation: ${operation}</div>
                 <div class="prompt-row">Program: ${program}</div>
-                <div class="prompt-row">Material/Texture: ${material}</div>
                 <div class="prompt-row">Scale: ${scale}</div>
             `;
 
@@ -98,6 +104,7 @@
                 <h4>Inspiration</h4>
                 <div class="prompt-row">Architect: ${architect}</div>
                 <div class="prompt-row">Architectural Style: ${architecturalStyle}</div>
+                <div class="prompt-row">Material/Texture: ${material}</div>
             `;
 
             const visualizationContainer = document.getElementById('visualization');
@@ -106,10 +113,16 @@
                 <div class="prompt-row">Visualization Style: ${visualizationStyle}</div>
                 <div class="prompt-row">Representation: ${representation}</div>
             `;
+            const modifierContainer = document.getElementById('modifier');
+            modifierContainer.innerHTML = `
+                <h4>Modifiers</h4>
+                <div class="prompt-row">Random: ${randomModifier}</div>
+                <div class="prompt-row">Context: ${contextModifier}</div>
+            `;
 
             // Generating a random descriptive prompt
             const generatedPrompt = document.getElementById('generated-prompt');
-            generatedPrompt.innerHTML = `<strong>Design Concept:</strong> ${getRandomSentence(form, operation, program, scale, material)}`;
+            generatedPrompt.innerHTML = `<strong>Design Concept:</strong> ${getRandomSentence(form, operation, program, scale, material, architecturalStyle, architect, visualizationStyle, representation)}`;
         }
     </script>
 </body>
