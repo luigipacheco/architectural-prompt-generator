@@ -41,7 +41,8 @@
             <div id="morphogenesis" class="section"></div>
             <div id="modifier" class="section"></div>
             <div id="visualization" class="section"></div>
-            <div id="generated-prompt" class="generated-prompt"></div>
+            <!-- <div id="generated-prompt" class="generated-prompt"></div> -->
+            <button class="btn btn-custom mt-2" onclick="copyPrompt()">Copy Prompt</button>
         </div>
 
     <script>
@@ -52,7 +53,7 @@
             scales: ['Micro', 'Miniature', 'Oversized', 'Gargantuan', 'Colossal','Tiny', 'Extra Small', 'Small', 'Medium', 'Large', 'Extralarge', 'Megastructural'],
             architecturalStyles: ['Postmodern', 'Contemporary', 'Eclectic', 'Expressionist', 'High-Tech', 'Minimalist', 'Organic', 'Post-Industrial', 'Sustainable', 'Traditional', 'Transitional', 'Tropical', 'Utopian', 'Vernacular','Modernist', 'Brutalist', 'Classical', 'Neoclassical', 'Baroque', 'Gothic', 'Renaissance', 'Art Deco', 'Victorian', 'Futurist'],
             architects: ['Alvar Aalto', 'Antoni Gaudí', 'Renzo Piano', 'Santiago Calatrava', 'I.M. Pei', 'Bjarke Ingels', 'Eero Saarinen', 'Philip Johnson', 'Peter Zumthor', 'Daniel Libeskind', 'Rafael Moneo', 'Herzog & de Meuron', 'Richard Meier', 'Richard Rogers', 'Richard Neutra', 'Louis Kahn', 'Amanda Levete', 'Kazuyo Sejima', 'Fumihiko Maki', 'Kenzo Tange', 'Toyo Ito', 'Kengo Kuma', 'Jeanne Gang', 'David Adjaye', 'Balkrishna Doshi', 'Oscar Niemeyer', 'Mario Botta', 'Thom Mayne', 'Eduardo Souto de Moura', 'Alison Brooks', 'David Chipperfield', 'Enric Miralles', 'Friedensreich Hundertwasser', 'Charles Rennie Mackintosh', 'Julia Morgan', 'Lina Bo Bardi', 'Moshe Safdie', 'Shigeru Ban', 'Steven Holl', 'Thomas Heatherwick', 'César Pelli', 'Gordon Bunshaft', 'Harry Seidler', 'Jean Prouvé', 'John Lautner', 'Ludwig Mies van der Rohe', 'Marcel Breuer', 'Paul Rudolph', 'Pier Luigi Nervi', 'Walter Gropius','Luis Barragan', 'Mies van der Rohe', 'Tadao Ando', 'Zaha Hadid', 'Frank Lloyd Wright', 'Le Corbusier', 'Norman Foster', 'Rem Koolhaas', 'Frank Gehry', 'Jean Nouvel'],
-            materials: ['Straw Bale', 'Recycled Glass', 'Adobe', 'Reclaimed Wood', 'Green Roof', 'Solar Tiles', 'Living Wall', 'Biomaterials', '3D Printed Material', 'Aerogel', 'Bamboo Fiber', 'Bioglass', 'Composite Wood', 'Cork', 'Cross-Laminated Timber', 'Engineered Stone', 'Graphene', 'Hempcrete', 'Liquid Metal', 'Memory Metal', 'Mycelium', 'Nano-materials', 'Rammed Earth', 'Resin', 'Silica Aerogel', 'Smart Glass', 'Stone Veneer', 'Synthetic Thatch', 'Thermochromic Materials', 'Transparent Aluminum', 'Translucent Concrete', 'Ultra-High Performance Concrete', 'Wool Brick','Wood Grain', 'Metal Finish', 'Rough Stone Texture', 'Glossy Surface', 'Brick Pattern', 'Concrete', 'Glass', 'Steel', 'Copper', 'Marble', 'Granite', 'Limestone', 'Sandstone', 'Bamboo', 'Plaster', 'Stucco', 'Ceramic Tiles', 'Porcelain', 'Terrazzo', 'Mosaic Tiles', 'Leather', 'Fabric', 'Canvas', 'Rubber', 'Plastic', 'Vinyl', 'Fiberglass', 'Carbon Fiber', 'Acrylic', 'Polycarbonate', 'Asphalt', 'Terra Cotta', 'Corten Steel', 'Aluminum', 'Zinc', 'Titanium', 'Bronze', 'Gold Leaf', 'Silver Leaf', 'Velvet', 'Silk', 'Wool', 'Denim', 'Satin', 'Lace', 'Hemp', 'Suede', 'Felt', 'Linen', 'Velour'],
+            materials: ['3D printed concrete','Straw Bale', 'Recycled Glass', 'Adobe', 'Reclaimed Wood', 'Green Roof', 'Solar Tiles', 'Living Wall', 'Biomaterials', '3D Printed Material', 'Aerogel', 'Bamboo Fiber', 'Bioglass', 'Composite Wood', 'Cork', 'Cross-Laminated Timber', 'Engineered Stone', 'Graphene', 'Hempcrete', 'Liquid Metal', 'Memory Metal', 'Mycelium', 'Nano-materials', 'Rammed Earth', 'Resin', 'Silica Aerogel', 'Smart Glass', 'Stone Veneer', 'Synthetic Thatch', 'Thermochromic Materials', 'Transparent Aluminum', 'Translucent Concrete', 'Ultra-High Performance Concrete', 'Wool Brick','Wood Grain', 'Metal Finish', 'Rough Stone Texture', 'Glossy Surface', 'Brick Pattern', 'Concrete', 'Glass', 'Steel', 'Copper', 'Marble', 'Granite', 'Limestone', 'Sandstone', 'Bamboo', 'Plaster', 'Stucco', 'Ceramic Tiles', 'Porcelain', 'Terrazzo', 'Mosaic Tiles', 'Leather', 'Fabric', 'Canvas', 'Rubber', 'Plastic', 'Vinyl', 'Fiberglass', 'Carbon Fiber', 'Acrylic', 'Polycarbonate', 'Asphalt', 'Terra Cotta', 'Corten Steel', 'Aluminum', 'Zinc', 'Titanium', 'Bronze', 'Gold Leaf', 'Silver Leaf', 'Velvet', 'Silk', 'Wool', 'Denim', 'Satin', 'Lace', 'Hemp', 'Suede', 'Felt', 'Linen', 'Velour'],
             visualizationStyles: ['Hand Drawing', 'Blueprint', 'Infographic', 'Concept Art', 'Digital Illustration', 'Vector Graphics', 'Photomontage', '3D Animation', 'Augmented Reality', 'Virtual Reality', 'Holographic Representation', 'Mixed Media','Pixel Art', 'Realistic', 'Collage', 'Sketch', 'Watercolor', '3D Render','Comic'],
             representations: ['Axonometric', 'Cross Section', 'Elevation', 'Perspective View', 'Top View', 'Urban Plan', 'Diagrammatic', 'Schematic', 'Detail Drawing', 'Exploded View', 'Virtual Tour', '3D Model','Section', 'Floor Plan', 'Isometric', 'Interior Perspective', 'Exterior Perspective', 'Birds Eye View'],
             randomModifiers: ['Abstract', 'Geometric', 'Minimalistic', 'Organic', 'Surreal', 'Modular', 'Narrative', 'Interactive', 'Adaptive', 'Kinetic', 'Responsive', 'Immersive', 'Parametric', 'Biophilic', 'Deconstructivist', 'Futuristic','Psychodelic', 'Decayed', 'Confusing', 'Ethereal', 'Solid'],
@@ -88,6 +89,22 @@
             const randomModifier = getRandomElement(categories.randomModifiers);
             const contextModifier = getRandomElement(categories.contextModifiers);
 
+            window.currentPrompt = `
+                Morphology
+                Form: ${form}
+                Operation: ${operation}
+                Program: ${program}
+                Scale: ${scale}
+                Modifiers
+                Random: ${randomModifier}
+                Context: ${contextModifier}
+                Architect: ${architect}
+                Architectural Style: ${architecturalStyle}
+                Material/Texture: ${material}
+                Visualization
+                Visualization Style: ${visualizationStyle}
+                Representation: ${representation}`;
+
 
             const morphogenesisContainer = document.getElementById('morphogenesis');
             morphogenesisContainer.innerHTML = `
@@ -117,6 +134,19 @@
             // Generating a random descriptive prompt
             const generatedPrompt = document.getElementById('generated-prompt');
             generatedPrompt.innerHTML = `<strong>Design Concept:</strong> ${getRandomSentence(form, operation, program, scale, material, architecturalStyle, architect, visualizationStyle, representation)}`;
+        }
+        function copyPrompt() {
+            if (!window.currentPrompt) {
+                alert('Please generate a prompt first!');
+                return;
+            }
+
+            // Copy the current prompt to the clipboard
+            navigator.clipboard.writeText(window.currentPrompt).then(() => {
+                alert('Prompt copied to clipboard!');
+            }).catch(err => {
+                console.error('Error copying text: ', err);
+            });
         }
     </script>
 </body>
