@@ -42,13 +42,13 @@
     <body class="text-center">
         <div class="container">
             <h1 class="display-4">Architectural Prompt Generator</h1>
-            <button class="btn btn-custom mt-4" onclick="generatePrompt()">Generate New Prompt</button>
+            <button class="btn btn-custom mt-4" onclick="generatePrompt()">Randomize parameters</button>
             
             <div id="morphogenesis" class="section"></div>
             <div id="modifier" class="section"></div>
             <div id="visualization" class="section"></div>
-            <!-- <div id="generated-prompt" class="generated-prompt"></div> -->
-            <button class="btn btn-custom mt-2" onclick="copyPrompt()">Copy Prompt</button>
+            <div id="generated-prompt" class="generated-prompt"></div>
+            <button class="btn btn-custom mt-2" onclick="copyPrompt()">Copy Parameters</button>
             <div class="footer mt-4">
                 <p>Check out the project on GitHub: <a href="https://github.com/luigipacheco/architectural-prompt-generator" target="_blank">GitHub Repository</a></p>
             </div>
@@ -73,14 +73,32 @@
             return arr[Math.floor(Math.random() * arr.length)];
         }
 
-        function getRandomSentence(form, operation, program, scale, material, architect, style, vizStyle, representation) {
-            const templates = [
-                `Envision a ${scale} ${style} ${program} designed by ${architect}, with a ${form} form featuring ${operation} and made of ${material}. It's presented as a ${vizStyle} showing a ${representation}.`,
-                `Picture a ${program} on a ${scale} scale, exhibiting a ${style} ${form} form. Created by ${architect}, it uses ${material} and demonstrates ${operation}. The ${representation} is shown in ${vizStyle}.`,
-                `Imagine a ${style} ${program} by ${architect}, scaling ${scale} and shaped as a ${form}. It ${operation} and uses ${material}, depicted in a ${vizStyle} ${representation}.`,
-                `Design a ${scale} ${program} inspired by ${style}, conceived by ${architect}. It takes a ${form} shape with ${operation} elements, using ${material}. Visualized through a ${vizStyle} ${representation}.`,
-                `Create a ${architect}'s ${style} vision of a ${scale} ${program}, using a ${form} form that ${operation}. The material of choice is ${material}, shown in a ${vizStyle} ${representation}.`
-            ];
+        function getRandomSentence(
+    form,
+    operation,
+    program,
+    scale,
+    material,
+    architecturalStyle,
+    architect,
+    visualizationStyle,
+    representation,
+    randomModifier,
+    contextModifier
+) {
+    const templates = [
+    // Existing template
+    `Create a  ${visualizationStyle} ${representation} of a ${scale} ${randomModifier} ${program} using a ${operation} ${form} form, designed by ${architect} in the ${architecturalStyle} style, located in ${contextModifier} using ${material}.`,
+    
+    // New templates
+    // `Design a Hand-Drawn Section of a ${scale} ${program} showcasing a ${form} form defined by ${operation}, conceived by ${architect} in a ${architecturalStyle} setting, utilizing ${material}. Present it in a ${visualizationStyle} ${representation}.`,
+    
+    // `Visualize a ${architecturalStyle} ${program} at a ${scale} scale with a ${form} form influenced by ${operation}, masterminded by ${architect} in an ${architecturalStyle} context using ${material}. Render it as a ${visualizationStyle} ${representation}.`,
+    
+    // `Imagine ${architect}'s ${architecturalStyle} vision, a ${scale} ${program} with a ${form} form  ${operation} and constructed from ${material}. Capture it in a ${visualizationStyle} ${representation}.`,
+    
+    // `Picture a ${architecturalStyle} ${program} of monumental proportions designed by ${architect}. This ${scale} structure takes on a captivating ${form} form featuring elements of ${operation}, all realized with ${material}. Visualize it in a ${visualizationStyle} ${representation}.`
+];
             return templates[Math.floor(Math.random() * templates.length)];
 }
         
@@ -142,7 +160,18 @@
 
             // Generating a random descriptive prompt
             const generatedPrompt = document.getElementById('generated-prompt');
-            generatedPrompt.innerHTML = `<strong>Design Concept:</strong> ${getRandomSentence(form, operation, program, scale, material, architecturalStyle, architect, visualizationStyle, representation)}`;
+            generatedPrompt.innerHTML = `<strong>Architectural Prompt:</strong> ${getRandomSentence(
+            form,
+            operation,
+            program,
+            scale,
+            material,
+            architecturalStyle,
+            architect,
+            visualizationStyle,
+            representation,
+            randomModifier,
+            contextModifier)}`;
         }
         function copyPrompt() {
             if (!window.currentPrompt) {
