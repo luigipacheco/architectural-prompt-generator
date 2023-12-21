@@ -8,7 +8,7 @@ https://www.instagram.com/stories/highlights/18095341258140679/
 
 1.- go to  https://luigipacheco.github.io/architectural-prompt-generator/ and create a prompt
 
-2.- Copy your prompt in this chatgpt bot: 
+2.- Copy and paste your prompt in this chatgpt bot: 
 https://chat.openai.com/g/g-N94mbptL7-archprompter
 
 3.- this should generate an image and a promopt that you can use on other Image generators
