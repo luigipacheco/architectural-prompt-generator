@@ -2,7 +2,7 @@
 
 ## About the Project
 
-The Architectural Prompt Generator is a creative tool developed to inspire architects and designers with unique architectural concepts. This project is an evolution of ideas discussed with Marcelo and builds upon his initial experiments showcased on [Instagram](https://www.instagram.com/stories/highlights/18095341258140679/).
+The Architectural Prompt Generator is a creative tool developed to inspire architects and designers with unique architectural concepts. This project is an evolution of ideas discussed with Marcelo Ertorteguy and builds upon his initial experiments showcased on [Instagram](https://www.instagram.com/stories/highlights/18095341258140679/).
 
 ## Workflow
 
