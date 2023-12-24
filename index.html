@@ -3,6 +3,8 @@
     <head>
         <title>Architectural Prompt Generator</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+
         <style>
             body {
                 margin-top: 50px;
@@ -37,6 +39,13 @@
                 border-top: 1px solid #e9ecef;
                 text-align: center;
             }
+            .reroll-button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #333; /* Example color */
+                font-size: 1rem; /* Example size */
+    }
         </style>
     </head>
     <body class="text-center">
@@ -144,33 +153,90 @@
                 Representation: ${representation}`;
 
 
-            const morphogenesisContainer = document.getElementById('morphogenesis');
-            morphogenesisContainer.innerHTML = `
-                <h4>Morphology</h4>
-                <div class="prompt-row">Form: ${form}</div>
-                <div class="prompt-row">Operation: ${operation}</div>
-                <div class="prompt-row">Program: ${program}</div>
-                <div class="prompt-row">Scale: ${scale}</div>
-            `;
+        const morphogenesisContainer = document.getElementById('morphogenesis');
+        morphogenesisContainer.innerHTML = `
+            <h4>Morphology</h4>
+            <div class="prompt-row">
+                Form: <span id="value-forms">${form}</span>
+                <button onclick="reroll('forms')" class="reroll-button">
+                    <i class="fas fa-dice"></i>
+                </button>
+            </div>
+            <div class="prompt-row">
+                Operation: <span id="value-operations">${operation}</span>
+                <button onclick="reroll('operations')" class="reroll-button">
+                    <i class="fas fa-dice"></i>
+                </button>
+            </div>
+            <div class="prompt-row">
+                Program: <span id="value-programs">${program}</span>
+                <button onclick="reroll('programs')" class="reroll-button">
+                    <i class="fas fa-dice"></i>
+                </button>
+            </div>
+            <div class="prompt-row">
+                Scale: <span id="value-scales">${scale}</span>
+                <button onclick="reroll('scales')" class="reroll-button">
+                    <i class="fas fa-dice"></i>
+                </button>
+            </div>
+        `;
 
-            const visualizationContainer = document.getElementById('visualization');
-            visualizationContainer.innerHTML = `
-                <h4>Visualization</h4>
-                <div class="prompt-row">Visualization Style: ${visualizationStyle}</div>
-                <div class="prompt-row">Representation: ${representation}</div>
-            `;
-            const modifierContainer = document.getElementById('modifier');
-            modifierContainer.innerHTML = `
-                <h4>Modifiers</h4>
-                <div class="prompt-row">Random: ${randomModifier}</div>
-                <div class="prompt-row">Context: ${contextModifier}</div>
-                <div class="prompt-row">Architect: ${architect}</div>
-                <div class="prompt-row">Architectural Style: ${architecturalStyle}</div>
-                <div class="prompt-row">Material/Texture: ${material}</div>
-            `;
+        const visualizationContainer = document.getElementById('visualization');
+        visualizationContainer.innerHTML = `
+            <h4>Visualization</h4>
+            <div class="prompt-row">
+                Visualization Style: <span id="value-visualizationStyles">${visualizationStyle}</span>
+                <button onclick="reroll('visualizationStyles')" class="reroll-button">
+                    <i class="fas fa-dice"></i>
+                </button>
+            </div>
+            <div class="prompt-row">
+                Representation: <span id="value-representations">${representation}</span>
+                <button onclick="reroll('representations')" class="reroll-button">
+                    <i class="fas fa-dice"></i>
+                </button>
+            </div>
+        `;
+
+        const modifierContainer = document.getElementById('modifier');
+        modifierContainer.innerHTML = `
+            <h4>Modifiers</h4>
+            <div class="prompt-row">
+                Random: <span id="value-randomModifiers">${randomModifier}</span>
+                <button onclick="reroll('randomModifiers')" class="reroll-button">
+                    <i class="fas fa-dice"></i>
+                </button>
+            </div>
+            <div class="prompt-row">
+                Context: <span id="value-contextModifiers">${contextModifier}</span>
+                <button onclick="reroll('contextModifiers')" class="reroll-button">
+                    <i class="fas fa-dice"></i>
+                </button>
+            </div>
+            <div class="prompt-row">
+                Architect: <span id="value-architects">${architect}</span>
+                <button onclick="reroll('architects')" class="reroll-button">
+                    <i class="fas fa-dice"></i>
+                </button>
+            </div>
+            <div class="prompt-row">
+                Architectural Style: <span id="value-architecturalStyles">${architecturalStyle}</span>
+                <button onclick="reroll('architecturalStyles')" class="reroll-button">
+                    <i class="fas fa-dice"></i>
+                </button>
+            </div>
+            <div class="prompt-row">
+                Material/Texture: <span id="value-materials">${material}</span>
+                <button onclick="reroll('materials')" class="reroll-button">
+                    <i class="fas fa-dice"></i>
+                </button>
+            </div>
+        `;
+
 
             // Generating a random descriptive prompt
-            const generatedPrompt = document.getElementById('generated-prompt');
+        const generatedPrompt = document.getElementById('generated-prompt');
             generatedPrompt.innerHTML = `<strong>Architectural Prompt:</strong> ${getRandomSentence(
             form,
             operation,
@@ -197,6 +263,58 @@
                 console.error('Error copying text: ', err);
             });
         }
+        function reroll(category) {
+            const newValue = getRandomElement(categories[category]);
+            document.getElementById(`value-${category}`).innerText = newValue;
+            updatePrompt();
+        }
+
+        function updatePrompt() {
+    // Retrieve the current values from the span elements
+    const form = document.getElementById('value-forms').innerText;
+    const operation = document.getElementById('value-operations').innerText;
+    const program = document.getElementById('value-programs').innerText;
+    const scale = document.getElementById('value-scales').innerText;
+    const material = document.getElementById('value-materials').innerText;
+    const visualizationStyle = document.getElementById('value-visualizationStyles').innerText;
+    const representation = document.getElementById('value-representations').innerText;
+    const architecturalStyle = document.getElementById('value-architecturalStyles').innerText;
+    const architect = document.getElementById('value-architects').innerText;
+    const randomModifier = document.getElementById('value-randomModifiers').innerText;
+    const contextModifier = document.getElementById('value-contextModifiers').innerText;
+
+    // Update the global currentPrompt variable
+    window.currentPrompt = `
+        Morphology
+        Form: ${form}
+        Operation: ${operation}
+        Program: ${program}
+        Scale: ${scale}
+        Modifiers
+        Random: ${randomModifier}
+        Context: ${contextModifier}
+        Architect: ${architect}
+        Architectural Style: ${architecturalStyle}
+        Material/Texture: ${material}
+        Visualization
+        Visualization Style: ${visualizationStyle}
+        Representation: ${representation}`;
+
+    // Update the descriptive prompt
+    const generatedPrompt = document.getElementById('generated-prompt');
+    generatedPrompt.innerHTML = `<strong>Architectural Prompt:</strong> ${getRandomSentence(
+        form,
+        operation,
+        program,
+        scale,
+        material,
+        architecturalStyle,
+        architect,
+        visualizationStyle,
+        representation,
+        randomModifier,
+        contextModifier)}`;
+}
     </script>
 </body>
 </html>
